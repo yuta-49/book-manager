@@ -7,7 +7,9 @@ import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 
-//認証処理の実装
+/**
+ * 認証機能の実装
+ */
 class BookManagerUserDetailsService(private val authenticationService: AuthenticationService) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails? {
         val user = authenticationService.findUser(username)

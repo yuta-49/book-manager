@@ -1,5 +1,9 @@
 package com.book.manager.presentation.config
 
+import com.book.manager.authentication.handler.BookManagerAccessDeniedHandler
+import com.book.manager.authentication.handler.BookManagerAuthenticationEntryPoint
+import com.book.manager.authentication.handler.BookManagerAuthenticationFailureHandler
+import com.book.manager.authentication.handler.BookManagerAuthenticationSuccessHandler
 import com.book.manager.authentication.service.AuthenticationService
 import com.book.manager.authentication.service.BookManagerUserDetailsService
 import com.book.manager.domain.enum.RoleType
@@ -25,13 +29,13 @@ class SecurityConfig(private val authenticationService: AuthenticationService) :
             .loginProcessingUrl("/login")
             .usernameParameter("email")
             .passwordParameter("pass")
-//            .successHandler(BookManagerAuthenticationSuccessHandler())
-//            .failureHandler(BookManagerAuthenticationFailureHandler())
+            .successHandler(BookManagerAuthenticationSuccessHandler())
+            .failureHandler(BookManagerAuthenticationFailureHandler())
             .and()
-//            .exceptionHandling()
-//            .authenticationEntryPoint(BookManagerAuthenticationEntryPoint())
-//            .accessDeniedHandler(BookManagerAccessDeniedHandler())
-//            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(BookManagerAuthenticationEntryPoint())
+            .accessDeniedHandler(BookManagerAccessDeniedHandler())
+            .and()
             .cors()
             .configurationSource(corsConfigurationSource())
     }

@@ -15,9 +15,9 @@
         - ./db/sql:/docker-entrypoint-initdb.d
 
     # Redis
-#    redis:
-#      image: "redis:latest"
-#      ports:
-#        - "6379:6379"
-#      volumes:
-#        - "./redis:/data"
+    redis:
+        image: "redis:latest"
+        ports:
+          - "6379:6379"
+        volumes:
+          - "./redis:/data"

@@ -3,10 +3,7 @@ package com.book.manager.presentation.log
 import com.book.manager.authentication.service.BookManagerUserDetails
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
-import org.aspectj.lang.annotation.After
-import org.aspectj.lang.annotation.Around
-import org.aspectj.lang.annotation.Aspect
-import org.aspectj.lang.annotation.Before
+import org.aspectj.lang.annotation.*
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -40,6 +37,7 @@ class LoggingAdvice {
         logger.info("------------------------------------------------")
     }
 
+    //AOP対象の処理を実行
     @Around("execution(* com.book.manager.presentation.controller..*.*(..))")
     fun aroundLog(joinPoint: ProceedingJoinPoint): Any?{
         val user = SecurityContextHolder.getContext().authentication.principal as BookManagerUserDetails
@@ -57,5 +55,13 @@ class LoggingAdvice {
 
         //本処理の結果の返却
         return result
+    }
+
+    //メソッドの戻り値を出力
+    @AfterReturning("execution(* com.book.manager.presentation.controller..*.*(..))", returning = "returnValue")
+    fun afterReturningLog(joinPoint: JoinPoint, returnValue: Any?){
+        logger.info("⑤")
+        logger.info("End: ${joinPoint.signature} returnValue=${returnValue}")
+        logger.info("------------------------------------------------")
     }
 }

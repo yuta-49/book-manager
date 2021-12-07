@@ -4,4 +4,5 @@ import com.book.manager.authentication.domain.User
 
 interface UserRepository {
     fun find(email: String): User?
+    fun findByPrimaryKey(id: Long): User?
 }

@@ -7,10 +7,9 @@ import com.book.manager.infrastructure.database.record.BookDynamicSqlSupport.Boo
 import com.book.manager.infrastructure.database.record.BookDynamicSqlSupport.Book.title
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.rentalDatetime
-import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.returnDatetime
+import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.returnDeadline
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.userId
 import com.book.manager.infrastructure.database.record.BookWithRentalRecord
-import org.mybatis.dynamic.sql.SqlBuilder
 import org.mybatis.dynamic.sql.SqlBuilder.*
 import org.mybatis.dynamic.sql.util.kotlin.mybatis3.from
 
@@ -22,7 +21,7 @@ private val columnList = listOf(
     releaseDate,
     userId,
     rentalDatetime,
-    returnDatetime
+    returnDeadline
 )
 
 fun BookWithRentalMapper.select(): List<BookWithRentalRecord> {

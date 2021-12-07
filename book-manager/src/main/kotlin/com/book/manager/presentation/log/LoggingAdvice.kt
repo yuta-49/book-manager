@@ -64,4 +64,12 @@ class LoggingAdvice {
         logger.info("End: ${joinPoint.signature} returnValue=${returnValue}")
         logger.info("------------------------------------------------")
     }
+
+    //例外処理を出力
+    @AfterThrowing("execution(* com.book.manager.presentation.controller..*.*(..))", throwing = "e")
+    fun afterThrowingLog(joinPoint: JoinPoint, e: Throwable){
+        logger.info("⑥")
+        logger.error("Exception: ${e.javaClass} signature=${joinPoint.signature} message=${e.message}")
+        logger.info("------------------------------------------------")
+    }
 }

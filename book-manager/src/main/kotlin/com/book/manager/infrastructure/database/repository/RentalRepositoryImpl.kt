@@ -18,6 +18,13 @@ class RentalRepositoryImpl(private val rentalMapper: RentalMapper): RentalReposi
     }
 
     /**
+     * 返却機能を実装
+     */
+    override fun endRental(bookId: Long) {
+        rentalMapper.deleteByPrimaryKey(bookId)
+    }
+
+    /**
      * modelをデータクラスに変換する
      */
     private fun toRecord(model: Rental): RentalRecord{

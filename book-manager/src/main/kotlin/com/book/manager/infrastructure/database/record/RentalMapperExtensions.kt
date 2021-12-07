@@ -6,7 +6,7 @@ package com.book.manager.infrastructure.database.record
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.bookId
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.rentalDatetime
-import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.returnDatetime
+import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.returnDeadline
 import com.book.manager.infrastructure.database.record.RentalDynamicSqlSupport.Rental.userId
 import com.book.manager.infrastructure.database.record.RentalRecord
 import org.mybatis.dynamic.sql.SqlBuilder.isEqualTo
@@ -29,7 +29,7 @@ fun RentalMapper.insert(record: RentalRecord) =
         map(bookId).toProperty("bookId")
         map(userId).toProperty("userId")
         map(rentalDatetime).toProperty("rentalDatetime")
-        map(returnDatetime).toProperty("returnDatetime")
+        map(returnDeadline).toProperty("returnDatetime")
     }
 
 fun RentalMapper.insertMultiple(records: Collection<RentalRecord>) =
@@ -37,7 +37,7 @@ fun RentalMapper.insertMultiple(records: Collection<RentalRecord>) =
         map(bookId).toProperty("bookId")
         map(userId).toProperty("userId")
         map(rentalDatetime).toProperty("rentalDatetime")
-        map(returnDatetime).toProperty("returnDatetime")
+        map(returnDeadline).toProperty("returnDatetime")
     }
 
 fun RentalMapper.insertMultiple(vararg records: RentalRecord) =
@@ -48,10 +48,10 @@ fun RentalMapper.insertSelective(record: RentalRecord) =
         map(bookId).toPropertyWhenPresent("bookId", record::bookId)
         map(userId).toPropertyWhenPresent("userId", record::userId)
         map(rentalDatetime).toPropertyWhenPresent("rentalDatetime", record::rentalDatetime)
-        map(returnDatetime).toPropertyWhenPresent("returnDatetime", record::returnDatetime)
+        map(returnDeadline).toPropertyWhenPresent("returnDatetime", record::returnDatetime)
     }
 
-private val columnList = listOf(bookId, userId, rentalDatetime, returnDatetime)
+private val columnList = listOf(bookId, userId, rentalDatetime, returnDeadline)
 
 fun RentalMapper.selectOne(completer: SelectCompleter) =
     selectOne(this::selectOne, columnList, Rental, completer)
@@ -75,7 +75,7 @@ fun KotlinUpdateBuilder.updateAllColumns(record: RentalRecord) =
         set(bookId).equalTo(record::bookId)
         set(userId).equalTo(record::userId)
         set(rentalDatetime).equalTo(record::rentalDatetime)
-        set(returnDatetime).equalTo(record::returnDatetime)
+        set(returnDeadline).equalTo(record::returnDatetime)
     }
 
 fun KotlinUpdateBuilder.updateSelectiveColumns(record: RentalRecord) =
@@ -83,14 +83,14 @@ fun KotlinUpdateBuilder.updateSelectiveColumns(record: RentalRecord) =
         set(bookId).equalToWhenPresent(record::bookId)
         set(userId).equalToWhenPresent(record::userId)
         set(rentalDatetime).equalToWhenPresent(record::rentalDatetime)
-        set(returnDatetime).equalToWhenPresent(record::returnDatetime)
+        set(returnDeadline).equalToWhenPresent(record::returnDatetime)
     }
 
 fun RentalMapper.updateByPrimaryKey(record: RentalRecord) =
     update {
         set(userId).equalTo(record::userId)
         set(rentalDatetime).equalTo(record::rentalDatetime)
-        set(returnDatetime).equalTo(record::returnDatetime)
+        set(returnDeadline).equalTo(record::returnDatetime)
         where(bookId, isEqualTo(record::bookId))
     }
 
@@ -98,6 +98,6 @@ fun RentalMapper.updateByPrimaryKeySelective(record: RentalRecord) =
     update {
         set(userId).equalToWhenPresent(record::userId)
         set(rentalDatetime).equalToWhenPresent(record::rentalDatetime)
-        set(returnDatetime).equalToWhenPresent(record::returnDatetime)
+        set(returnDeadline).equalToWhenPresent(record::returnDatetime)
         where(bookId, isEqualTo(record::bookId))
     }

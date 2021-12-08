@@ -20,6 +20,7 @@ class RentalService(private val userRepository: UserRepository, private val book
 
     /**
      * 貸出機能のロジック
+     * throw IllegalArgumentException
      */
     @Transactional
     fun startRental(bookId: Long, userId: Long){

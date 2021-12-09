@@ -36,6 +36,8 @@ dependencies {
 	mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.4.0")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.mockito:mockito-core:3.8.0")
+	testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 }
 
 tasks.withType<KotlinCompile> {

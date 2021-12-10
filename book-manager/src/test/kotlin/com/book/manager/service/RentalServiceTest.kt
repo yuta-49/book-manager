@@ -44,4 +44,29 @@ internal class RentalServiceTest {
         verify(bookRepository).findWithRental(bookId)
         verify(rentalRepository).endRental(bookId)
     }
+
+    /**
+     * 例外スロー検証
+     */
+    @Test
+    fun `endRental when book is not rental then throw exception`() {
+        val userId = 100L
+        val bookId = 1000L
+        val user = User(userId, "test@test.com", "pass", "kotlin", RoleType.USER)
+        val book = Book(bookId, "Kotlin入門", "コトリン太郎", LocalDate.now())
+        val bookWithRental = BookWithRental(book, null)
+
+        whenever(userRepository.find(user.email)).thenReturn(user)
+        whenever(bookRepository.findWithRental(any())).thenReturn(bookWithRental)
+
+        val exception = Assertions.assertThrows(IllegalArgumentException::class.java) {
+            rentalService.endRental(bookId, userId)
+        }
+
+        assertThat(exception.message).isEqualTo("未貸出の商品です bookId:${bookId}")
+
+        verify(userRepository).find(user.email)
+        verify(bookRepository).findWithRental(bookId)
+        verify(rentalRepository, times(0)).endRental(any())
+    }
 }
